@@ -32,7 +32,7 @@ console.disableYellowBox = true;
 *   It implements a wheel picker
 *   returned value should be in seconds
 * */
-export class TimePicker extends React.Component {
+export class TimeSelection extends React.Component {
 
 
     render() {

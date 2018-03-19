@@ -1,7 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * Transe
  */
 
 import React, { Component } from 'react';
@@ -9,7 +7,6 @@ import {
     Image,
     Platform,
     StyleSheet,
-    Picker,
     Text,
     Dimensions,
     Animated,
@@ -20,6 +17,8 @@ import {
 import { StackNavigator } from 'react-navigation';
 import { TimerCountdown } from './subAssemblies.js';
 import FadeInView from './FadeInView.js';
+import Picker from 'react-native-wheel-picker';
+var PickerItem = Picker.Item;
 
 var sWidth = Dimensions.get('window').width;
 var sLength = Dimensions.get('window').height;
@@ -401,75 +400,28 @@ class TranseSetUpScreen extends React.Component {
 
     render() {
         var transeTime = this.setFinalTime();
-        var PickerItem = Picker.Item;
         return (
             <View style={styles.protoView}>
                 <View style={{ flex: 0.25, width: sWidth }}>
                     <FadeInView>
-                        <Text style = {{textAlign: 'center', fontSize: 26, fontStyle: 'italic', fontFamily: 'Verdana'}}>Choose a Time!</Text>
+                        {this.renderIf(this.state.until,
+                            <Text style = {{textAlign: 'center', fontSize: 26, fontStyle: 'italic', fontFamily: 'Verdana'}}>Focus Until When?</Text>
+                        )}
+                        {this.renderIf(!this.state.until,
+                            <Text style = {{textAlign: 'center', fontSize: 26, fontStyle: 'italic', fontFamily: 'Verdana'}}>Focus For How Long?</Text>
+                        )}
                     </FadeInView>
                 </View>
                 { }
                 {/* spacer */}
-                <View style={{ flex: 0.5, width: sWidth }} />
                 {this.renderIf(
                     this.state.until,
-                <View
-                    style={{
-                        flex: 1,
-                        borderWidth: 3,
-                        borderColor: '#000000',
-                        width: sWidth,
-                        flexDirection: 'row',
-                        alignSelf: 'center',
-                        alignItems: 'center'
-                    }}>
-                    <Picker
-                        style={{
-                            width: 100,
-                            height: 100,
-                        }}
-                        selectedValue={this.state.selectedItem1}
-                        itemStyle={{color:"black", fontSize:26}}
-                        onValueChange={index => this.setState({selectedItem1: index})}>
-                        {this.state.hourList.map((value, i) => (
-                            <PickerItem label={value} value={i} key={value} />
-                        ))}
-                    </Picker>
-                    <Picker
-                        style={{
-                            width: 100,
-                            height: 100,
-                        }}
-                        selectedValue={this.state.selectedItem2}
-                        itemStyle={{color:"black", fontSize:26}}
-                        onValueChange={index => this.setState({selectedItem2: index})}>
-                        {this.state.minuteList.map((value, i) => (
-                            <PickerItem label={value} value={i} key={value} />
-                        ))}
-                    </Picker>
-                    <Picker
-                        style={{
-                            width: 100,
-                            height: 100,
-                        }}
-                        selectedValue={this.state.selectedItem3}
-                        itemStyle={{color:"black", fontSize:26}}
-                        onValueChange={index => this.setState({selectedItem3: index})}>
-                        {this.state.morningOrNight.map((value, i) => (
-                            <PickerItem label={value} value={i} key={value} />
-                        ))}
-                    </Picker>
-                </View>
-                )}
-
-                {this.renderIf(
-                    !this.state.until,
                     <View
                         style={{
+                            flex: 1,
                             flexDirection: 'row',
-                            alignItems: 'center',
-                            marginBottom: 75,
+                            alignSelf: 'center',
+                            alignItems: 'center'
                         }}>
                         <Picker
                             style={{
@@ -479,42 +431,100 @@ class TranseSetUpScreen extends React.Component {
                             selectedValue={this.state.selectedItem1}
                             itemStyle={{color:"black", fontSize:26}}
                             onValueChange={index => this.setState({selectedItem1: index})}>
+                            {this.state.hourList.map((value, i) => (
+                                <PickerItem label={value} value={i} key={value} />
+                            ))}
+                        </Picker>
+                        <Picker
+                            style={{
+                                width: 100,
+                                height: 100,
+                            }}
+                            selectedValue={this.state.selectedItem2}
+                            itemStyle={{color:"black", fontSize:26}}
+                            onValueChange={index => this.setState({selectedItem2: index})}>
+                            {this.state.minuteList.map((value, i) => (
+                                <PickerItem label={value} value={i} key={value} />
+                            ))}
+                        </Picker>
+                        <Picker
+                            style={{
+                                width: 100,
+                                height: 100,
+                            }}
+                            selectedValue={this.state.selectedItem3}
+                            itemStyle={{color:"black", fontSize:26}}
+                            onValueChange={index => this.setState({selectedItem3: index})}>
+                            {this.state.morningOrNight.map((value, i) => (
+                                <PickerItem label={value} value={i} key={value} />
+                            ))}
+                        </Picker>
+                    </View>
+                )}
+
+                {this.renderIf(
+                    !this.state.until,
+                    <View
+                        style={{
+                            marginTop: sLength * (1/10),
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                        <View
+                            style={{
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}>
+                        <Text style={{fontWeight: 'bold' }}>Hrs</Text>
+                        <Picker
+                            style={{
+                                width: 150,
+                                height: 100,
+                            }}
+                            selectedValue={this.state.selectedItem1}
+                            itemStyle={{color:"black", fontSize:26}}
+                            onValueChange={index => this.setState({selectedItem1: index})}>
                             {this.state.forHours.map((value, i) => (
                                 <PickerItem label={value} value={i} key={value} />
                             ))}
                         </Picker>
-
-                        <Text style={{fontWeight: 'bold' }}>Hrs</Text>
-
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}>
+                            <Text style={{fontWeight: 'bold' }}>Mins</Text>
                         <Picker
-                        style={{
-                        width: 100,
-                        height: 100,
-                    }}
-                        selectedValue={this.state.selectedItem2}
-                        itemStyle={{color:"black", fontSize:26}}
-                        onValueChange={index => this.setState({selectedItem2: index})}>
-                        {this.state.forMinutes.map((value, i) => (
-                            <PickerItem label={value} value={i} key={value} />
-                        ))}
-                    </Picker>
-
-                        <Text style={{fontWeight: 'bold' }}>Mins</Text>
+                            style={{
+                                width: 150,
+                                height: 100,
+                            }}
+                            selectedValue={this.state.selectedItem2}
+                            itemStyle={{color:"black", fontSize:26}}
+                            onValueChange={index => this.setState({selectedItem2: index})}>
+                            {this.state.forMinutes.map((value, i) => (
+                                <PickerItem label={value} value={i} key={value} />
+                            ))}
+                        </Picker>
+                        </View>
 
                     </View>
                 )}
 
-                    <View style={{ flex: 1, width: sWidth }}>
+                <View style={{ flex: 0.5, width: sWidth }} />
+                <View style={{ flex: 1, width: sWidth }}>
                     <View style={{ flex: 1, flexDirection: 'row', width: sWidth }}>
                         <TouchableHighlight
                             onPress={() => {
                                 this.toggleUntil();
                             }}
-                            underlayColor = "green"
+                            underlayColor = "#3CB371"
                             style={{
                                 flex: 1,
                                 alignItems: 'center',
                                 justifyContent: 'center',
+                                marginBottom: sLength * (0.5/10),
                             }}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Until</Text>
                         </TouchableHighlight>
@@ -522,11 +532,12 @@ class TranseSetUpScreen extends React.Component {
                             onPress={() => {
                                 this.toggleFor();
                             }}
-                            underlayColor = "green"
+                            underlayColor = "#3CB371"
                             style={{
                                 flex: 1,
                                 alignItems: 'center',
                                 justifyContent: 'center',
+                                marginBottom: sLength * (0.5/10),
                             }}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>For</Text>
                         </TouchableHighlight>
@@ -536,9 +547,9 @@ class TranseSetUpScreen extends React.Component {
                         style={{
                             flex: 1,
                             flexDirection: 'column',
-                            paddingVertical: 20,
                             justifyContent: 'center',
                             alignItems: 'center',
+                            paddingVertical: sLength * (0.25/10),
                         }}>
                         <TouchableHighlight
                             onPress={() =>
@@ -553,8 +564,9 @@ class TranseSetUpScreen extends React.Component {
                                 borderRadius: 20,
                                 borderWidth: 4,
                                 borderColor: '#137547',
+                                backgroundColor: '#3CB371',
                             }}>
-                            <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Transe</Text>
+                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>Transe</Text>
                         </TouchableHighlight>
                     </View>
                 </View>
@@ -567,9 +579,52 @@ class TranseSetUpScreen extends React.Component {
 
 class inTranseScreen extends React.Component {
     static navigationOptions = { header: null };
-
     _handlePress() {
         console.log('Pressed!');
+    }
+
+    /*
+        added constructor to take care of checker for
+        if timer is finished and focus point incrementer
+     */
+    constructor(props) {
+        super(props);
+        this.state = {
+            finished: false,
+            focusPoints: 0,
+        }
+    }
+
+    /*
+      conditional rendering function: I am using this because it appears to be a clean way to switch views.
+      Let me know if it's a serious problem, but from what I can see it works just fine.
+    */
+    renderIf(condition, content) {
+        if (condition) {
+            return content;
+        } else {
+            return null;
+        }
+    }
+
+    /*
+        toggles boolean value for whether or not timer is finished;
+        this will control a conditional display depending on whether or not
+        all time has elapsed.
+     */
+    toggleFinished() {
+        this.setState({
+            finished: true,
+        });
+    }
+
+    /*
+        set focus points; they should earn 10 focus points every minute.
+    */
+    setPoints(timeTo) {
+        this.setState({
+            focusPoints: (timeTo) * (10/60),
+        });
     }
 
     render() {
@@ -586,14 +641,37 @@ class inTranseScreen extends React.Component {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                    <TimerCountdown
-                        initialSecondsRemaining={timeTo * 1000}
-                        onTick={() => console.log('tick')}
-                        onTimeElapsed={() => console.log('complete')}
-                        allowFontScaling={true}
-                        style={{ fontSize: 45 }}
-                    />
-                    <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Remaining</Text>
+                    {this.renderIf(!this.state.finished && timeTo > 0,
+                        <View style = {{alignItems: 'center', justifyContent: 'center'}}>
+                            <TimerCountdown
+                                initialSecondsRemaining={timeTo * 1000}
+                                onTick={() => console.log('tick')}
+                                onTimeElapsed={() => {this.toggleFinished(); this.setPoints(timeTo)}}
+                                allowFontScaling={true}
+                                style={{ fontSize: 45 }}
+                            />
+                            <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Remaining</Text>
+                        </View>
+                    )}
+                    {this.renderIf(timeTo === 0,
+                        <View>
+                            <Text style = {{textAlign: 'center', fontWeight: 'bold', fontSize: (sLength * (2/45)), color: '#3CB371'}}>
+                                Oops! You selected 0 hours and 0 minutes.
+                            </Text>
+                            <Text style = {{textAlign: 'center', fontWeight: 'bold', fontSize: (sLength * (1/45))}}>
+                                Click the buttons below to get back to the homepage.
+                            </Text>
+                        </View>
+                    )}
+                    {this.renderIf(this.state.finished,
+                        <View>
+                            <Text style = {{textAlign: 'center', fontWeight: 'bold', fontSize: (sLength * (2/25)), color: '#3CB371'}}>
+                                You did it!
+                            </Text>
+                            <Text style = {{textAlign: 'center', fontWeight: 'bold', fontSize: (sLength * (1/25))}}>
+                                + {this.state.focusPoints} Focus Points!</Text>
+                        </View>
+                    )}
                 </View>
                 <View
                     style={{
@@ -602,12 +680,15 @@ class inTranseScreen extends React.Component {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
+
                     <View style={{ flex: 1, aspectRatio: 1 }}>
                         <Image
                             style={styles.bigIcon}
                             source={require('./assets/focus.png')}
                         />
                     </View>
+
+
                 </View>
 
                 <View
@@ -719,7 +800,7 @@ const styles = StyleSheet.create({
         borderColor: '#137547',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#DCDCDC',
+        backgroundColor: 'white',
         borderRadius: sWidth * 0.7,
         width: sWidth * 0.7,
 
@@ -729,7 +810,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: '#DCDCDC',
+        backgroundColor: 'white',
         paddingTop: sLength * 0.1,
     },
     bigIcon: {
