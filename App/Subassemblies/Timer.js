@@ -1,83 +1,15 @@
 import React, { Component } from 'react';
-import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import {
-    Image,
-    Platform,
-    StyleSheet,
     Text,
     View,
-    Dimensions, Button, TouchableHighlight,
     ViewPropTypes as RNViewPropTypes
 } from 'react-native';
 
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
 
-//TODO add 24-hour time
-const hours = ["1","2","3","4","5","6","7","8","9","10","11","12"];
-
-const minutes = [ "00","01","02","03","04","05","06","07","08","09",
-    "10","11","12","13","14","15","16","17","18","19",
-    "20","21","22","23","24","25","26","27","28","29",
-    "30","31","32","33","34","35","36","37","38","39",
-    "40","41","42","43","44","45","46","47","48","49",
-    "50","51","52","53","54","55","56","57","58","59",
-];
-
 console.disableYellowBox = true;
-//TODO find a suitable cross platform "wheel picker"
 
-/*TODO complete this component so:
-*   The user can select a time when the transe will end
-*   It implements a wheel picker
-*   returned value should be in seconds
-* */
-export class TimeSelection extends React.Component {
-
-
-    render() {
-        return (
-            <View>
-
-            </View>
-        )
-    }
-}
-
-/*TODO complete this component so:
-*   The user can select how long atranse will last
-*   It implements a wheel picker
-*   returned value should be in seconds
-* */
-export class DurationPicker extends React.Component {
-    render(){
-        return(
-            <View style={styles.mainWindow}>
-
-
-
-            </View>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-    mainWindow: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#aaffd9',
-    },
-    text: {
-        fontSize: 30,
-        alignSelf: 'center',
-        color: 'red'
-    },
-    pickerStyle: {
-        width: 100,
-    },
-});
 
 /*
 react-native-timer-countdown

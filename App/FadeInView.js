@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import {
-    Image,
-    Platform,
-    StyleSheet,
-    Picker,
-    Text,
-    Dimensions,
     Animated,
-    View,
-    Button,
-    TouchableHighlight,
-} from 'react-native';
+    StyleSheet,
+    } from 'react-native';
 
 export default class FadeInView extends React.Component {
     state = {
